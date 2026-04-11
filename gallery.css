@@ -1,0 +1,74 @@
+div{
+    width:100%;
+    
+    height: 10%;
+}
+img{
+    width:20%;
+    height: auto;
+    padding: 2.3%;
+    aspect-ratio: 1,1;
+}
+
+.scroll {
+  overflow-x: scroll;
+  overflow-y:hidden;
+  white-space: nowrap;
+}
+div.inky{
+  background-color: #e6d600;
+  scrollbar-color: #d4bf00 #d4bf00;
+}
+h2.inky{
+    background-color: #d4bf00;
+
+}
+h2{
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+div.zorp{
+  background-color: #007a41;
+  scrollbar-color: #005c23 #007a41;
+}
+h2.zorp{
+    background-color: #01573a;
+
+}
+div.neva{
+  background-color: #5e6286;
+  scrollbar-color: #4a4c66 #5e6286;
+}
+h2.neva{
+    background-color: #4a4c66;
+
+}
+div.blaze{
+  background-color: #ffbd2f;
+  scrollbar-color: #ffae00 #ffbd2f;
+}
+h2.blaze{
+    background-color: #ffae00;
+
+}
+table.top{
+    width: auto;
+    border-spacing: 3px;
+    padding-top: 5px;
+}
+table.top  td{
+    border-collapse: collapse; 
+    border: solid 2px;
+    border-color: white; 
+    padding-left: 15px;
+    padding-right: 15px;
+    
+}
+table.top  td:hover{
+    background-color: rgb(255, 253, 253, 0.4);
+}
+a{
+    color: white;
+}

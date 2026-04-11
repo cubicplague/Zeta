@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Event Countdown Clock with Timezone Awareness</title>
+
+	<!-- Normalize.css -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+	<!-- Countdown Clock Styles -->
+	<link rel="stylesheet" href="clocksheet.css">
+
+	<!-- jQuery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!-- jQuery.countdown -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.min.js"></script>
+
+	<!-- MomentJS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.23/moment-timezone-with-data-2012-2022.min.js"></script>
+
+</head>
+<body>
+    <center>
+        <table class="top">
+        <tr>
+            <td><a href="index.html">Home</a></td>
+            <td><a href="info.html">Info</a></td>
+            <td><a href="session_time.html">Session Time</a></td>
+            <td><a href="https://forms.gle/nQuddf9cJu85duqM7">Applications</a></td>
+            <td><a href="gallery.html">Photos!</a></td>
+        </tr>
+    </table></center>
+
+
+
+	<h1>Session starts in:</h1>
+	<div class="countdown-clock">
+		<div class="countdown-container"
+			data-countdown
+			data-countdown-start="2026-04-11 16:00:00"~ 
+			data-countdown-end="2026-4-11 20:00:00"
+			data-countdown-timezone="Poland/Warsaw"></div>
+	</div>
+<!-- notice to the poor soul after me (aka myself) the timer needs adjusting for whatever fucking reason... OH WAIT IM IN HUNGARIAN TIMEZONE! -->
+	<script>
+
+		// ID of the element to add the Countdown Clock to
+		var $clockElement = $('[data-countdown]');
+
+		$clockElement.each( function() {
+
+			// Read data from HTML attributes to store in vars
+			var $clock = $(this),
+				// Event STARTING time
+				eventStart = $(this).data('countdownStart'),
+				// Event ENDING time
+				eventEnd = $(this).data('countdownEnd'),
+				// Event TIMEZONE
+				eventTimeZone = $(this).data('countdownTimezone');
+
+			// CONVERT eventEnd to MOMENT.JS FORMAT to compare with current time later on.
+			var eventEndTime = moment.tz(eventEnd, eventTimeZone);
+
+			// Time to COUNTDOWN TO
+			var countdownTo = moment.tz(eventStart, eventTimeZone);
+
+			$clock.countdown(countdownTo.toDate(), { elapse: true } ).on('update.countdown', function(event) {
+				// Clock Countdown HTML Ouptut
+				var output = '<div class="time seconds"><span class="count">%S</span> <span class="label">sec%!S</span></div>';
+				// Add number of MINUTES left
+				if ( event.offset.totalMinutes > 0 ) {
+					output = '<div class="time minutes"><span class="count">%M</span> <span class="label">min%!M</span></div>' + output;
+				}
+				// Add number of HOURS left
+				if ( event.offset.totalHours > 0 ) {
+					output = '<div class="time hours"><span class="count">%H</span> <span class="label">hr%!H</span></div>' + output;
+				}
+				// Add number of DAYS left
+				if ( event.offset.totalDays > 0 ) {
+					output = '<div class="time days"><span class="count">%-D</span> <span class="label">day%!D</span></div>' + output;
+				}
+
+				// Get CURRENT TIME in the event's timezone
+				var currentTime = moment().tz(eventTimeZone);
+
+				// If CURRENT TIME is GREATER THAN event ENDING TIME, display...
+				if ( currentTime > eventEndTime && event.elapsed ) {
+					$(this).html(''
+						+ '<p style="color:red">Session ended/ending soon!</p>'
+					).parent().addClass('disabled');
+					// Stop the Countdown
+					$(this).countdown('stop');
+				// If event has ENDED and is still IN PROGRESS, display...
+				} else if ( event.elapsed ) {
+					$(this).html(''
+						+ '<p style="color:green">Session in progress! :)</p>'
+					).parent().addClass('disabled');
+				// Display COUNTDOWN to event...
+				} else {
+					$(this).html( event.strftime(output) );
+				}
+
+			});
+
+		});
+
+	</script>
+<!-- NGL ALL THIS SHIT IS RIPPED OFF OF GITHUB I AINT WRITING ALLAT, KINDA BROKEN TOO BUT I FIXED IT. -->
+<h1>Sessions on Saturdays 5PM GMT </h1>
+
+    <br><div style="width: 400px;  padding-top: 1.5%;"><img style="width: 100%;" src="pics/THE ORB.png"></div>
+
+</body>
+</html>
