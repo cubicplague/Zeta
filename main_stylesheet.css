@@ -2,7 +2,7 @@ body{
     
     background-color: #000000;
     
-    height: 4000px; /* Used to enable scrolling */
+    height: fit-content; /* Used to enable scrolling */
     background: linear-gradient(0deg, #32e0ff 15%, #ffffff,  #3a3a3a 55%, #000000 73%);
     color: white;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
